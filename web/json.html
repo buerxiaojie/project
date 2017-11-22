@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>jsonp 跨域请求</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<script type="text/javascript" src="https://www.youoil.cn/res/front/ver2013/commonjs/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript">
+	function handleResponse(data){
+		alert(data)
+	}
+	$(function(){
+        $("#btn").click(function(){
+            $.ajax({
+                async : true,
+                url : "http://172.16.88.142:8088/front/testJsonP.do",
+                type : "POST",
+                dataType : "jsonp",  // 返回的数据类型，设置为JSONP方式
+                jsonp : 'callback', // 指定一个查询参数名称来覆盖默认的 jsonp 回调参数名 callback
+                jsonpCallback: 'handleResponse', // 设置回调函数名
+                data : {
+                    mobile : "13538852364"
+                }, 
+                success: function(response, status, xhr){
+                    console.log('状态为：' + status + ',状态是：' + xhr.statusText);
+                    console.log(response);
+                }
+            });
+        });
+    });
+	</script>
+</head>
+<body>
+<div id="mydiv">
+	<button id="btn">跨域请求</button>
+</div>
+</body>
+</html>
